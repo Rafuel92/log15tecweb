@@ -1340,3 +1340,8 @@ body {
 .page-client-autista .page-title {
   text-align: center;
 }
+
+.clickable {
+  cursor: pointer;
+  text-decoration: underline;
+}

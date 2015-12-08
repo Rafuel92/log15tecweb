@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="theme/css/style.css" rel="stylesheet">
     <title>Log15Tecweb | Resoconto Autista</title>
+    <script type="text/javascript">
+      toggle = function(id) {
+      var mydiv = document.getElementById(id);
+      if (mydiv.style.display === 'block' || mydiv.style.display === '')
+        mydiv.style.display = 'none';
+      else
+        mydiv.style.display = 'block';
+      }
+    </script>
   </head>
   <body class="page-client-autista autista">
     <div class="container">
@@ -24,17 +33,39 @@
           <span class="locatin-destinazione">Viale indipendenza 10</span>
         </div>
       </div>
+      <div class="assegnamenti-precendenti">
+        <button class="btn assegnamenti-precedenti-trigger clickable" onclick="javascript:toggle('assegnamenti-storico-wrap');">Visualizza Storico Assegnamenti</button>
+        <div style="display:none;" id="assegnamenti-storico-wrap">
+          <div class="assegnamenti-inside success">Tratta effettuata con successo 
+            <span class="location-partenza">P.Le tecchio</span>
+            <span class="locatin-destinazione">Viale indipendenza 10</span>
+          </div>
+          <div class="assegnamenti-inside error">Un problema &egrave; stato segnalato per questa tratta 
+            <span class="location-partenza">P.Le tecchio</span>
+            <span class="locatin-destinazione">Viale indipendenza 10</span>
+          </div>
+        </div>
+      </div>
       <div class="segnala-orario-effettivo-di-partenza segnalazione-autista-wrap">
-        <span class="segnala-orario-di-partenza toggle closed">Segnala orario di partenza</span>
+        <button class="btn segnala-orario-di-partenza clickable" onclick="javascript:toggle('segnala-orario-di-partenza-form');">Segnala orario di partenza</button>
+        <div style="display:none;" id="segnala-orario-di-partenza-form">
+          FORM SEGNALA ORARIO PARTENZA
+        </div>
       </div>
       <div class="segnala-orario-effettivo-di-arrivo segnalazione-autista-wrap">
-        <span class="segnala-orario-di-arrivo toggle closed">Segnala orario di arrivo</span>
+        <button class="btn segnala-orario-di-arrivo clickable" onclick="javascript:toggle('segnala-orario-di-arrivo-form');">Segnala orario di arrivo</button>
+        <div style="display:none;" id="segnala-orario-di-arrivo-form">
+            FORM SEGNALA ORARIO ARRIVO
+        </div>
       </div>
       <div class="segnala-problema segnalazione-autista-wrap">
-        <span class="segnala-problema toggle closed">Segnala problema</span>
+        <button class="btn segnala-problema clickable" onclick="javascript:toggle('segnala-problema-form');">Segnala problema</button>
+        <div style="display:none;" id="segnala-problema-form">
+          FORM SEGNALA PROBLEMA FORM
+        </div>
       </div>
       <div class="altre-info">
-        <a class="segnala-problema toggle closed" href="#">Altre info</a>
+        <a class="segnala-problema" href="#">Altre info</a>
       </div>
     </div>
   </body>
