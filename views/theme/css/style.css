@@ -1332,9 +1332,6 @@ body {
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .page-client-autista .page-title {
@@ -1344,4 +1341,44 @@ body {
 .clickable {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.contenitore-pagina-autista {
+  text-align: center;
+}
+
+.contenitore-pagina-autista div {
+  margin-top:10px;
+}
+
+.contenitore-pagina-autista span {
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+}
+
+table td {
+  text-align: center;
+}
+
+.amministratore-block .form-control {
+  display: inline-block;
+  width: auto;
+}
+
+.filters {
+  width: 100%;
+}
+
+.amministratore-block-heading a {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+footer {
+  text-align: center;
+  border-top: 1px solid grey;
+  margin-top:10px;
 }
