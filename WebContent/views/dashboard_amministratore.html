@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="views/theme/css/style.css" rel="stylesheet">
+    <title>Log15Tecweb | Dashboard Amministratore</title>
+    <script type="text/javascript">
+      toggle = function(id) {
+      var mydiv = document.getElementById(id);
+      if (mydiv.style.display === 'block' || mydiv.style.display === '')
+        mydiv.style.display = 'none';
+      else
+        mydiv.style.display = 'block';
+      }
+    </script>
+  </head>
+  <body class="page-client-amministratore amministratore">
+    <div class="container contenitore-pagina-amministratore">
+      <div class="row">
+        <h2 class="page-title">Dashboard Amministratore</h2> 
+        <div class="colonna-5 amministratore-block gestione-automezzi">
+          <h2 class="amministratore-block-heading">Gestione Automezzi <a href="Aggiunta_automezzo.jsp">Aggiungi Automezzo</a></h2>
+          <div class="filters">
+            <form>
+              <input  class="form-control" placeholder="Filtra per targa">
+              <button class="btn btn-lg btn-primary " type="submit">Applica</button>
+            </form>
+          </div>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Targa Automezzo</th>
+               <th>Stato Attuale</th>
+               <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>DR17893</td>
+               <td>DISPONIBILE</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            <tr>
+                <td>DISPONIBILE</td>
+                <td>OCCUPATO</td>
+                <td><a href="#">Modifica</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="colonna-5 amministratore-block assegnamenti-proposti">
+          <h2 class="amministratore-block-heading">Assegnamenti Proposti</h2>
+          <div class="filters">
+            <form>
+              <input  class="form-control" placeholder="Filtra per cliente">
+              <button class="btn btn-lg btn-primary " type="submit">Applica</button>
+            </form>
+          </div>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Automezzo</th>
+               <th>Autista</th>
+               <th>Cliente</th>
+               <th>Data</th>
+               <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola Spa</td>
+               <td>01/12/2015</td>
+               <td><a href="#">Approva</a> - <a href="#">Rifiuta</a></td>
+            </tr>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola Spa</td>
+               <td>01/12/2015</td>
+               <td><a href="#">Approva</a> - <a href="#">Rifiuta</a></td>
+            </tr>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola Spa</td>
+               <td>01/12/2015</td>
+               <td><a href="#">Approva</a> - <a href="#">Rifiuta</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="colonna-5 amministratore-block gestione-autisti">
+          <h2 class="amministratore-block-heading">Gestione Autisti<a href="#">Aggiungi Autista</a></h2>
+          <div class="filters">
+            <form>
+              <input  class="form-control" placeholder="Filtra per cognome">
+              <button class="btn btn-lg btn-primary " type="submit">Applica</button>
+            </form>
+          </div>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Nome</th>
+               <th>Cognome</th>
+               <th>Stato Attuale</th>
+               <th>Modifica</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>Giacomo</td>
+               <td>Guillizzoni</td>
+               <td>Occupato su DR17689</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            <tr>
+               <td>Giacomo</td>
+               <td>Guillizzoni</td>
+               <td>Occupato su DR17689</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            <tr>
+               <td>Giacomo</td>
+               <td>Guillizzoni</td>
+               <td>Occupato su DR17689</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="colonna-5 amministratore-block gestione-clienti">
+          <h2 class="amministratore-block-heading">Gestione Clienti<a href="#">Aggiungi Cliente</a></h2>
+          <div class="filters">
+            <form>
+              <input  class="form-control" placeholder="Filtra per nominativo">
+              <button class="btn btn-lg btn-primary " type="submit">Applica</button>
+            </form>
+          </div>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Nome</th>
+               <th>Sede di Partenza</th>
+               <th>Stato di Destinazione</th>
+               <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>Coca Cola spa</td>
+               <td>Viale camaggio</td>
+               <td>Napoli via roma 3</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            <tr>
+               <td>Coca Cola spa</td>
+               <td>Viale camaggio</td>
+               <td>Napoli via roma 3</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            <tr>
+               <td>Coca Cola spa</td>
+               <td>Viale camaggio</td>
+               <td>Napoli via roma 3</td>
+               <td><a href="#">Modifica</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="colonna-5 amministratore-block ultimi-assegnamenti-approvati">
+          <h2 class="amministratore-block-heading">Ultimi assegnamenti approvati</h2>
+          <div class="filters">
+            <form>
+              <input  class="form-control" placeholder="Filtra per cliente">
+              <button class="btn btn-lg btn-primary " type="submit">Applica</button>
+            </form>
+          </div>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Automezzo</th>
+               <th>Cliente</th>
+               <th>Autista</th>
+               <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola SPA</td>
+               <td>01/10/2015</td>
+            </tr>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola SPA</td>
+               <td>01/10/2015</td>
+            </tr>
+            <tr>
+               <td>DR17893</td>
+               <td>Giacomo Guillizzoni</td>
+               <td>Coca Cola SPA</td>
+               <td>01/10/2015</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      <div class="mappa-situazione-attuale colonna-5">
+<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d12044.22898545118!2d13.96646415!3d41.0021202!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sit!2sit!4v1449647846599" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+      </div>
+      <footer>
+        <a href="#">Logout</a>
+      </footer>
+  </body>
+</html>

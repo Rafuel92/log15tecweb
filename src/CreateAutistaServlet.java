@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class servlet2
+ * Servlet implementation class CreateAutistaServlet
  */
-@WebServlet("/servlet3")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/CreateAutistaServlet")
+public class CreateAutistaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public CreateAutistaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +29,26 @@ public class WelcomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-        String usertype=(String) request.getAttribute("usertype");
-        if(usertype.compareToIgnoreCase("a")==0){
-        	//APRI DASHBOARD AMMINISTRATORI
+		// TODO Auto-generated method stub	
+	    String username=request.getParameter("username");
+	    String email=request.getParameter("email");
+	    String password=request.getParameter("password");
+	    String nome=request.getParameter("nome");
+	    String cognome=request.getParameter("cognome");
+	    Autista autista=new Autista(username, email, password, nome, cognome);
+	    PrintWriter out = response.getWriter();
+	    if(autista.inserimentocorretto){
+	    	//L'autista è stato aggiunto al DB
+            //APRI DASHBOARD AMMINISTRATORI
+	    	out.println("<div class='messages container ok'>Autista aggiunto</div>");
         	RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
 			rd.include(request,response);
-        }
-        if(usertype.compareToIgnoreCase("d")==0){
-        	//APRI PAGINA AUTISTI
-        	RequestDispatcher rd=request.getRequestDispatcher("client_autista.jsp");
+	    }else {
+	        //Impossibile aggiungere l'autista al DB
+	    	out.println("Impossibile aggiungere l'autista");
+	    	RequestDispatcher rd=request.getRequestDispatcher("aggiungi_autista.jsp");
 			rd.include(request,response);
-        }
-        if(usertype.compareToIgnoreCase("c")==0){
-
-            PrintWriter out = response.getWriter();
-            out.println("Funzionalita' cliente non implementata");
-        }
+	    }
 	}
 
 	/**
@@ -58,4 +60,3 @@ public class WelcomeServlet extends HttpServlet {
 	}
 
 }
-

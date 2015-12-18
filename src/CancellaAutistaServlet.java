@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class servlet2
+ * Servlet implementation class CancellaAutistaServlet
  */
-@WebServlet("/servlet3")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/cancella-autista-server")
+public class CancellaAutistaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public CancellaAutistaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +30,30 @@ public class WelcomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-        String usertype=(String) request.getAttribute("usertype");
-        if(usertype.compareToIgnoreCase("a")==0){
-        	//APRI DASHBOARD AMMINISTRATORI
-        	RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+		String id_autista = request.getParameter("id_autista");
+		String id=request.getParameter("id");
+		AutistaDao Autistidbconn = new AutistaDao();
+		Boolean success = Autistidbconn.cancellaautista(id,id_autista);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		if(success){
+			try{
+				out.print("<div class='messages container ok'>Cancellazione andata a buon fine</div>");
+				RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+				rd.include(request,response);
+			}catch (Exception e){
+				out.println("PROBLEMI NELLA COSTRUZIONE DEL RESPONSO");
+			}
+		}
+		else{
+			out.print("<div class='messages container error'>Problema nella cancellazione</div>");
+			RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
 			rd.include(request,response);
-        }
-        if(usertype.compareToIgnoreCase("d")==0){
-        	//APRI PAGINA AUTISTI
-        	RequestDispatcher rd=request.getRequestDispatcher("client_autista.jsp");
-			rd.include(request,response);
-        }
-        if(usertype.compareToIgnoreCase("c")==0){
-
-            PrintWriter out = response.getWriter();
-            out.println("Funzionalita' cliente non implementata");
-        }
+		}
+		
+		out.close();
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,4 +64,3 @@ public class WelcomeServlet extends HttpServlet {
 	}
 
 }
-
