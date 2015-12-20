@@ -15,8 +15,8 @@
       <form action="modifica-automezzo-server" class="form-signin" method="post">
         <h2 class="form-signin-heading">Modifica Automezzo</h2>
 		<input name="targa" class="form-control" value="<%= request.getParameter("targa") %>" required autofocus/>
-        <input name = "data_acquisto" class="form-control" placeholder="Data Acquisto" value="<%= request.getParameter("data_acquisto") %>" required>
         <input name = "modello" class="form-control" placeholder="Modello" value="<%= request.getParameter("modello") %>" required>
+		<input type="text" class="form-control" required pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" name="data_acquisto"  value="<%= request.getParameter("data_acquisto") %>" placeholder="Data Acquisto">
 		<input type="hidden" name="id_automezzo" value="<%= request.getParameter("id_automezzo") %>" />
         <button class="btn btn-lg btn-primary btn-block" type="submit">Invia</button>
       </form>
