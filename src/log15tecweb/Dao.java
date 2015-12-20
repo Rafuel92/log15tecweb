@@ -6,9 +6,14 @@ import java.sql.SQLException;
 public class Dao {
 	static Connection conn;
 	public static Connection getDatabaseConnection() {
-		if(conn!=null){
-			System.out.println("connessione_singleton");
-			return conn;
+		try {
+			if(conn!=null && !conn.isClosed()){
+				System.out.println("connessione_singleton");
+				return conn;
+			}
+		} catch (SQLException e1) {
+			System.out.println("errore_connessione_singleton");
+			return null;
 		}
 		//DATI DATABASE
 		String nomedb="log15tecnweb";

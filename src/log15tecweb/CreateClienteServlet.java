@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CreateClienteServlet
  */
-//@WebServlet("log15tecweb.CreateClienteServlet")
+@WebServlet("/CreateClienteServlet")
 public class CreateClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
