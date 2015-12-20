@@ -15,12 +15,10 @@ public class AssegnamentiDao extends Dao {
 
 	public ResultSet ReadListaAssegnamenti(){
 	    try{
-	    	
-	      
 		  PreparedStatement ps=connessione.prepareStatement("select * from assegnamenti WHERE assegnamenti.approvato=1 ORDER BY assegnamenti.data DESC");
 		  ResultSet rs=ps.executeQuery();
 		  if(null!= rs){
-			System.out.println("ok_ci_sono_automezzi2");
+			System.out.println("ok_ci_sono_assegnamenti_buoni");
 		    return rs;
 		  }
 		} catch (SQLException e) {

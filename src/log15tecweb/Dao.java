@@ -4,7 +4,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Dao {
+	static Connection conn;
 	public static Connection getDatabaseConnection() {
+		if(conn!=null){
+			System.out.println("connessione_singleton");
+			return conn;
+		}
 		//DATI DATABASE
 		String nomedb="log15tecnweb";
 		String address="localhost";
@@ -13,7 +18,7 @@ public class Dao {
 		String passDB="root";
 	    try {
 		  Class.forName("com.mysql.jdbc.Driver");
-		  Connection conn= DriverManager.getConnection("jdbc:mysql://"+address+":"+porta + "/" + nomedb, userDB, passDB);
+		  conn= DriverManager.getConnection("jdbc:mysql://"+address+":"+porta + "/" + nomedb, userDB, passDB);
 		  return conn;
 	    } catch (SQLException e) {
 		  String error="Problemi di connessione col DB" + e.getMessage();
@@ -23,5 +28,14 @@ public class Dao {
 		 System.out.println("3"+error);
 	     }
 	     return null;
+	}
+	
+	public static boolean closeDatabaseConnection(Connection conn){
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

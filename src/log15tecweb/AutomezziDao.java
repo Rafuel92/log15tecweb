@@ -111,16 +111,17 @@ public class AutomezziDao extends Dao {
 	public Boolean CancellaAutomezzo(String identificativo){
 		try {
 			String query = "DELETE FROM automezzi WHERE id="+identificativo;
+			System.out.println("query_cancellazione_automezzo");
 			System.out.println(query);
 			PreparedStatement ps=connessione.prepareStatement(query);
 			ps.execute();
 			return true;
 		} catch (SQLException e) {
 			  String error="Problemi di connessione col DB" + e.getMessage();
-			  System.out.println("2"+error);
+			  System.out.println("2automezzodelete"+error);
 		} catch(Exception e){
 			 String error="Driver JDBC non trovato"+ e.getMessage();
-			 System.out.println(error);
+			 System.out.println("2automezzodelete"+error);
 		}
 		return false;
 	}
