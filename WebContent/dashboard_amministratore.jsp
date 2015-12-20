@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.lang.reflect.*" %>
-<%! String printAutomezzi() {
+<%@ page import="log15tecweb.*" %>
+<%! 
+	String printAutomezzi() {
 		String toprint;
 		try {
-			Class c = Class.forName("gestoreAutomezzi");
-			Object obj = c.newInstance();
-			Method m2 = c.getDeclaredMethod("PrintListaAutomezzi", null);
-			Object output_automezzi = m2.invoke(obj, null);
-			toprint = (String) output_automezzi;
+			gestoreAutomezzi gestautomezzi = new gestoreAutomezzi();
+			toprint = gestautomezzi.PrintListaAutomezzi();
 			return toprint;
 		} catch (Exception e) {
 			toprint = "Non Disponibile";
@@ -18,26 +16,19 @@
 	String printAutisti() {
 	 String toprint;
 			try {
-				 Class c = Class.forName("gestoreAutisti");
-				 Object obj  = c.newInstance();
-				 Method m2 = c.getDeclaredMethod("PrintListaAutisti",null);
-				 Object output_autisti = m2.invoke(obj,null);
-				 toprint = (String) output_autisti;
+				 gestoreAutisti gestautisti = new gestoreAutisti();
+				 toprint = gestautisti.PrintListaAutisti();
 				 return toprint;
 				} catch(Exception e){
-					 toprint = "PROBLEMA";
+					 toprint = "Lista autisti non disponibile "+e.getMessage();
 					 return toprint;
 				}
 	  }
-	
 	String printClienti() {
 		   String toprint;
 				try {
-					 Class c = Class.forName("gestoreClienti");
-					 Object obj  = c.newInstance();
-					 Method m2 = c.getDeclaredMethod("PrintListaClienti",null);
-					 Object output_clienti = m2.invoke(obj,null);
-					 toprint = (String) output_clienti;
+					 gestoreClienti gestclienti = new gestoreClienti();
+					 toprint = gestclienti.PrintListaClienti();
 					 return toprint;
 					} catch(Exception e){
 						 toprint = "ERRORE CLIENTI: "+e.getMessage();
@@ -47,11 +38,8 @@
 	String printAssegnamentiProposti() {
 		String output_assegnamenti;
 		try {
-			Class c = Class.forName("GestoreAssegnamenti");
-			Object obj = c.newInstance();
-			Method m2 = c.getDeclaredMethod("GeneratePossibiliAssegnamenti", null);
-			Object output_assegnamenti_ottenuto = m2.invoke(obj, null);
-			output_assegnamenti = (String) output_assegnamenti_ottenuto;
+			GestoreAssegnamenti gest_assegnamenti = new GestoreAssegnamenti();
+			output_assegnamenti = gest_assegnamenti.GeneratePossibiliAssegnamenti();
 			return output_assegnamenti;
 		} catch (Exception e) {
 			output_assegnamenti = "Non Disponibile " + e.getMessage();
@@ -61,11 +49,8 @@
 	String printAssegnamentiApprovati() {
 		String output_assegnamenti;
 		try {
-			Class c = Class.forName("GestoreAssegnamenti");
-			Object obj = c.newInstance();
-			Method m2 = c.getDeclaredMethod("PrintAssegnamentiApprovati", null);
-			Object output_assegnamenti_ottenuto = m2.invoke(obj, null);
-			output_assegnamenti = (String) output_assegnamenti_ottenuto;
+			GestoreAssegnamenti gest_assegnamenti = new GestoreAssegnamenti();
+			output_assegnamenti = gest_assegnamenti.PrintAssegnamentiApprovati();
 			return output_assegnamenti;
 		} catch (Exception e) {
 			output_assegnamenti = "Non Disponibile " + e.getMessage();
@@ -75,11 +60,8 @@
 	String printMappa() {
 		String output_mappa;
 		try {
-			Class c = Class.forName("GoogleApiConsumer");
-			Object obj = c.newInstance();
-			Method m2 = c.getDeclaredMethod("GenerateIframeFromAddress", null);
-			Object output_mappa_ottenuto = m2.invoke(obj, null);
-			output_mappa = (String) output_mappa_ottenuto;
+			GoogleApiConsumer gapi = new GoogleApiConsumer();
+			output_mappa = gapi.GenerateIframeFromAddress();
 			return output_mappa;
 		} catch (Exception e) {
 			output_mappa = "Non Disponibile " + e.getMessage();

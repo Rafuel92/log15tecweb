@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <servlet>
-    <servlet-name>FirstServlet</servlet-name>
-    <servlet-class>FirstServlet</servlet-class>
+    <servlet-name>log15tecweb.FirstServlet</servlet-name>
+    <servlet-class>log15tecweb.FirstServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <servlet-class>WelcomeServlet</servlet-class>
+    <servlet-name>log15tecweb.WelcomeServlet</servlet-name>
+    <servlet-class>log15tecweb.WelcomeServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>AggiungiAutomezzoServerPage</servlet-name>
-    <servlet-class>AggiungiAutomezzoServerPage</servlet-class>
+    <servlet-name>log15tecweb.AggiungiAutomezzoServerPage</servlet-name>
+    <servlet-class>log15tecweb.AggiungiAutomezzoServerPage</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ApprovaAssegnamentoServerPage</servlet-name>
-    <servlet-class>ApprovaAssegnamentoServerPage</servlet-class>
+    <servlet-name>log15tecweb.ApprovaAssegnamentoServerPage</servlet-name>
+    <servlet-class>log15tecweb.ApprovaAssegnamentoServerPage</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CancellaAutomezzoServerPage</servlet-name>
-    <servlet-class>CancellaAutomezzoServerPage</servlet-class>
+    <servlet-name>log15tecweb.CancellaAutomezzoServerPage</servlet-name>
+    <servlet-class>log15tecweb.CancellaAutomezzoServerPage</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ModificaAutomezzoServerPage</servlet-name>
-    <servlet-class>ModificaAutomezzoServerPage</servlet-class>
+    <servlet-name>log15tecweb.ModificaAutomezzoServerPage</servlet-name>
+    <servlet-class>log15tecweb.ModificaAutomezzoServerPage</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>LogoutServlet</servlet-class>
+    <servlet-name>log15tecweb.LogoutServlet</servlet-name>
+    <servlet-class>log15tecweb.LogoutServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CreateClientServlet</servlet-name>
-    <servlet-class>CreateClientServlet</servlet-class>
+    <servlet-name>log15tecweb.CreateClientServlet</servlet-name>
+    <servlet-class>log15tecweb.CreateClientServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ModificaClienteServlet</servlet-name>
-    <servlet-class>ModificaClienteServlet</servlet-class>
+    <servlet-name>log15tecweb.ModificaClienteServlet</servlet-name>
+    <servlet-class>log15tecweb.ModificaClienteServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>cancella-cliente-server</servlet-name>
-    <servlet-class>CancellaClienteServlet</servlet-class>
+    <servlet-name>log15tecweb.cancella-cliente-server</servlet-name>
+    <servlet-class>log15tecweb.CancellaClienteServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CreateAutistaServlet</servlet-name>
-    <servlet-class>CreateAutistaServlet</servlet-class>
+    <servlet-name>log15tecweb.CreateAutistaServlet</servlet-name>
+    <servlet-class>log15tecweb.CreateAutistaServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ModificaAutistaServlet</servlet-name>
-    <servlet-class>ModificaAutistaServlet</servlet-class>
+    <servlet-name>log15tecweb.ModificaAutistaServlet</servlet-name>
+    <servlet-class>log15tecweb.ModificaAutistaServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CancellaAutistaServlet</servlet-name>
-    <servlet-class>CancellaAutistaServlet</servlet-class>
+    <servlet-name>log15tecweb.CancellaAutistaServlet</servlet-name>
+    <servlet-class>log15tecweb.CancellaAutistaServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>RifiutaAssegnamentoServerPage</servlet-name>
-    <servlet-class>RifiutaAssegnamentoServerPage</servlet-class>
+    <servlet-name>log15tecweb.RifiutaAssegnamentoServerPage</servlet-name>
+    <servlet-class>log15tecweb.RifiutaAssegnamentoServerPage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FirstServlet</servlet-name>
+    <servlet-name>log15tecweb.FirstServlet</servlet-name>
     <url-pattern>/servlet1</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>WelcomeServlet</servlet-name>
+    <servlet-name>log15tecweb.WelcomeServlet</servlet-name>
     <url-pattern>/servlet3</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-name>log15tecweb.LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>AggiungiAutomezzoServerPage</servlet-name>
+    <servlet-name>log15tecweb.AggiungiAutomezzoServerPage</servlet-name>
     <url-pattern>/aggiunta-automezzo-server</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CancellaAutomezzoServerPage</servlet-name>
+    <servlet-name>log15tecweb.CancellaAutomezzoServerPage</servlet-name>
     <url-pattern>/cancella-automezzo-server</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ModificaAutomezzoServerPage</servlet-name>
+    <servlet-name>log15tecweb.ModificaAutomezzoServerPage</servlet-name>
     <url-pattern>/modifica-automezzo-server</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CreateClientServlet</servlet-name>
+    <servlet-name>log15tecweb.CreateClientServlet</servlet-name>
     <url-pattern>/CreateClientServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ModificaClienteServlet</servlet-name>
+    <servlet-name>log15tecweb.ModificaClienteServlet</servlet-name>
     <url-pattern>/ModificaClienteServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CancellaClienteServlet</servlet-name>
+    <servlet-name>log15tecweb.CancellaClienteServlet</servlet-name>
     <url-pattern>/cancella-cliente-server</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CreateAutistaServlet</servlet-name>
+    <servlet-name>log15tecweb.CreateAutistaServlet</servlet-name>
     <url-pattern>/CreateAutistaServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ModificaAutistaServlet</servlet-name>
+    <servlet-name>log15tecweb.ModificaAutistaServlet</servlet-name>
     <url-pattern>/ModificaAutistaServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CancellaAutistaServlet</servlet-name>
+    <servlet-name>log15tecweb.CancellaAutistaServlet</servlet-name>
     <url-pattern>/cancella-autista-server</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ApprovaAssegnamentoServerPage</servlet-name>
+    <servlet-name>log15tecweb.ApprovaAssegnamentoServerPage</servlet-name>
     <url-pattern>/approva-assegnamento</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>RifiutaAssegnamentoServerPage</servlet-name>
+    <servlet-name>log15tecweb.RifiutaAssegnamentoServerPage</servlet-name>
     <url-pattern>/rifiuta-assegnamento</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
