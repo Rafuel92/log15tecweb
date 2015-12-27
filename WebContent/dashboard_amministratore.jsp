@@ -57,17 +57,6 @@
 			return output_assegnamenti;
 		}		
 	}
-	String printMappa() {
-		String output_mappa;
-		try {
-			GoogleApiConsumer gapi = new GoogleApiConsumer();
-			output_mappa = gapi.GenerateIframeFromAddress();
-			return output_mappa;
-		} catch (Exception e) {
-			output_mappa = "Non Disponibile " + e.getMessage();
-			return output_mappa;
-		}		
-	}	
 %>
 <!DOCTYPE html>
 <html>
@@ -169,7 +158,18 @@
           </table>
         </div>
       <div class="mappa-situazione-attuale colonna-12">
-			<%= printMappa() %>
+		<% 
+		String id_assegnamento = request.getParameter("id_assegnamento_map"); 
+		GoogleApiConsumer gapi = new GoogleApiConsumer();
+		String output_mappa;
+		if(null != id_assegnamento){
+		  output_mappa = gapi.GenerateIframeFromAddress(id_assegnamento);
+		} else {
+		  output_mappa = gapi.GenerateIframeFromAddress("last");
+		}
+		out.print(output_mappa);
+		%>
+	
       </div>
       </div>
       <footer>

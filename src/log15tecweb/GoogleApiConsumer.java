@@ -12,14 +12,21 @@ public class GoogleApiConsumer {
 	   return g_maps_url;
    }
    
-   public String GenerateIframeFromAddress() {
+   public String GenerateIframeFromAddress(String id_assegnamento) {
 		String Responso = "";
 		AssegnamentiDao Assegnamentidbconnection = new AssegnamentiDao();
-		ResultSet ListaAssegnamenti = Assegnamentidbconnection.ReadListaAssegnamenti();
-		AutomezziDao Automezzidbconnection = new AutomezziDao();
+		//ResultSet ListaAssegnamenti = Assegnamentidbconnection.ReadListaAssegnamenti();
+		//AutomezziDao Automezzidbconnection = new AutomezziDao();
 		ClienteDao Clientidbconnection = new ClienteDao();
-		AutistaDao Autistidbconnection = new AutistaDao();
-
+		//AutistaDao Autistidbconnection = new AutistaDao();
+		ResultSet ListaAssegnamenti;
+		if(id_assegnamento == "last"){
+			System.out.println("stampo_ultimo");
+			ListaAssegnamenti = Assegnamentidbconnection.ReadListaAssegnamenti();
+		} else {
+			System.out.println("stampo_id"+id_assegnamento);
+			ListaAssegnamenti = Assegnamentidbconnection.GetAssegnamentoById(id_assegnamento);
+		}
 		try {
 			System.out.println("okkkbueno");
 			Boolean passed = false;

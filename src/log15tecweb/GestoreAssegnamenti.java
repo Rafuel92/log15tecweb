@@ -79,9 +79,17 @@ public List<String> GetListaAutisti() {
 	    List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
       return items;
 }
-  
+  /**
+   * Questo metodo consente di ottenere una lista di assegnamenti gia' effettuati e approvati per la data "tra 7 giorni"
+   * a partire da adesso
+   * 
+   * @return
+   */
   public List<String> GetAssegnamentiInCorso() {
     String str = "Guillizzoni-Coca Cola Spa1-DRYSZO,Rossi-Coca Cola Spa2-DRYSZ2";
+    StringaAssegnamenti = str;
+    
+    
 	List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
     return items;
   }
@@ -164,7 +172,6 @@ public List<String> GetListaAutisti() {
     Automezzi = GetListaAutomezzi();
     Autisti = GetListaAutisti();
     AssegnamentiInCorso = GetAssegnamentiInCorso();
-    StringaAssegnamenti = "Guillizzoni-Coca Cola Spa1-DRYSZ1,Guillizzoni-Coca Cola Spa2-DRYSZ2";
     SetClientiInAttesa();
     SetAutistiLiberi();
     SetAutomezziLiberi();
@@ -246,6 +253,11 @@ public List<String> GetListaAutisti() {
 				Responso += "<td>"+	Clientidbconnection.GetNominativoClienteById(ListaAssegnamenti.getString("id_cliente"))+"</td>";
 				Responso += "<td>"+	Autistidbconnection.GetNominativoAutistaById(ListaAssegnamenti.getString("id_autista"))+"</td>";
 				Responso += "<td>"+	ListaAssegnamenti.getString("data")+"</td>";
+				
+				String link_switch_map = "<a href='dashboard_amministratore.jsp?id_assegnamento_map=";
+				link_switch_map += ListaAssegnamenti.getString("id");
+				link_switch_map += "'>Visualizza Percorso</a>";
+				Responso += "<td>"+	link_switch_map+"</td>";
 				Responso += "</tr>";
 			}
 			Responso += "</tbody>";

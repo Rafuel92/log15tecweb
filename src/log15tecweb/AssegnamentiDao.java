@@ -30,6 +30,26 @@ public class AssegnamentiDao extends Dao {
 		}
 		return null;		
 	}
+
+	
+	public ResultSet GetAssegnamentoById(String id_assegnamento){
+	    try{
+	      String Query = "select * from assegnamenti WHERE id="+id_assegnamento;
+		  PreparedStatement ps=connessione.prepareStatement(Query);
+		  ResultSet rs=ps.executeQuery();
+		  if(null!= rs){
+			System.out.println("ok_ci_sono_assegnamenti_buoni");
+		    return rs;
+		  }
+		} catch (SQLException e) {
+			  String error="Problemi di connessione col DB" + e.getMessage();
+			  System.out.println("2"+error);
+		} catch(Exception e){
+			 String error="Driver JDBC non trovato"+ e.getMessage();
+			 System.out.println(error);
+		}
+		return null;		
+	}
 	
 	public Boolean inserisciAssegnamento(String approvato,String data, String id_cliente, String id_automezzo, String id_autista){
 	try{

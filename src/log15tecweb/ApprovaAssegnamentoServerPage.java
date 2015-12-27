@@ -39,16 +39,15 @@ public class ApprovaAssegnamentoServerPage extends HttpServlet {
 		String id_automezzo=request.getParameter("id_automezzo");
 		String id_autista=request.getParameter("id_autista");
 		String id_cliente=request.getParameter("id_cliente");
-		String data = "2015-12-01 00:00:00";
 		String approvato = "1";
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, 7);
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		System.out.println(cal.getTime());
 		String formatted = format1.format(cal.getTime());
 		System.out.println(formatted);
 		System.out.println("superdata");
-		data = formatted;
+		String data = formatted;
 		
 		AssegnamentiDao Assegnamentidb= new AssegnamentiDao();
 		Boolean success = Assegnamentidb.inserisciAssegnamento(approvato,data,id_cliente,id_automezzo,id_autista);		
