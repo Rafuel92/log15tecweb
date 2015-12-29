@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="log15tecweb.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -15,30 +16,45 @@
       else
         mydiv.style.display = 'block';
       }
-	  pager_hide = function() {
-		  var x = document.getElementsByClassName("example");
-		  var i;
-		  for (i = 0; i < x.length; i++) {
-		      x[i].style.backgroundColor = "red";
-		  }
-	  }
     </script>
   </head>
   <body class="page-client-autista autista">
     <div class="container contenitore-pagina-autista">
       <h2 class="page-title">Resoconto Autista</h2> 
       <div class="welcome-message">Benvenuto 
-        <span class="username">Mario</span>
-        <span class="password">Rossi</span>
+        <span class="username">
+	        <%
+			String username_curr_user = request.getParameter("username"); 
+	        out.print(username_curr_user);
+			%>      
+        </span>
       </div>
       <div class="notifiche">
         Notifiche <span class="number-notifications">1</span>
+
       </div>
       <div class="current-assegnamento">
         Tra <span class="current-assegnamento-minuti">10 minuti</span> a <span class="location-start">P.LE Tecchio</span>
         <div class="assegnamento">Per tratta 
           <span class="location-partenza">P.Le tecchio</span>
           <span class="locatin-destinazione">Viale indipendenza 10</span>
+        </div>
+      </div>
+      <!-- Giornata autista -->
+      <div class="giornata-autista">
+        <button class="btn giornata-autista-trigger clickable" onclick="javascript:toggle('giornata-autista-wrap');">Visualizza Giornata</button>
+        <div style="display:none;" id="giornata-autista-wrap">
+		  <!-- Stampa giornata autista -->
+          <%
+   	   		String toprint;
+   			try {
+   				 gestoreAutisti AutistiClass = new gestoreAutisti();
+   				 toprint = AutistiClass.PrintGiornataAutistaByUsername(request.getParameter("username"));
+   				} catch(Exception e){
+   					 toprint = "ERRORE CLIENTI: "+e.getMessage();
+   				}
+   			out.print(toprint);
+          %>
         </div>
       </div>
       <div class="assegnamenti-precendenti">

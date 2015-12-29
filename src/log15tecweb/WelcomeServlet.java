@@ -33,6 +33,8 @@ public class WelcomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         String usertype=(String) request.getAttribute("usertype");
+        String username=(String) request.getAttribute("username");
+
         if(usertype.compareToIgnoreCase("a")==0){
         	//APRI DASHBOARD AMMINISTRATORI
         	RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
@@ -40,11 +42,11 @@ public class WelcomeServlet extends HttpServlet {
         }
         if(usertype.compareToIgnoreCase("d")==0){
         	//APRI PAGINA AUTISTI
-        	RequestDispatcher rd=request.getRequestDispatcher("client_autista.jsp");
+        	RequestDispatcher rd=request.getRequestDispatcher("client_autista.jsp?username="+username);
+
 			rd.include(request,response);
         }
         if(usertype.compareToIgnoreCase("c")==0){
-
             PrintWriter out = response.getWriter();
             out.println("Funzionalita' cliente non implementata");
         }

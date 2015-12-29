@@ -29,6 +29,7 @@ public class FirstServlet extends HttpServlet {
 			try{
 			String usertype=rs.getString("usertype");
 			request.setAttribute("usertype", usertype );
+			request.setAttribute("username", n);
 			RequestDispatcher rd=request.getRequestDispatcher("servlet3");
 			rd.forward(request,response);
 			}catch (Exception e){
