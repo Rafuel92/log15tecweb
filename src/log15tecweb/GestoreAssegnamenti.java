@@ -88,7 +88,7 @@ public List<String> GetListaAutisti() {
   public List<String> GetAssegnamentiInCorso() {
     String str = "Guillizzoni-Coca Cola Spa1-DRYSZO,Rossi-Coca Cola Spa2-DRYSZ2";
     StringaAssegnamenti = str;
-    
+    StringaAssegnamenti = "";
     
 	List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
     return items;
@@ -186,17 +186,24 @@ public List<String> GetListaAutisti() {
 	  	int i = 0;
 		int j = 0;
 		int k = 0;
+		int results_counter = 0;
+		boolean pagination_needed = false;
+		int elements_number = 0;
+		markup_assegnamenti += "<table class='amministratore-table table'>";
+		markup_assegnamenti += "<thead><tr><th>Automezzo</th><th>Autista</th><th>Cliente</th><th>Data</th><th>Azioni</th></tr></thead>";
 		markup_assegnamenti += "<tbody>";
 		if(ClientiInAttesa.size() == 0 || AutistiLiberi.size()==0 || AutomezziLiberi.size()==0){
-			return "Non ci sono Assegnamenti Possibili";
+			return "<tbody>Non ci sono Assegnamenti Possibili</tbody>";
 		}
 		while(i < ClientiInAttesa.size()){
 			String att_cliente = ClientiInAttesa.get(i);
+			System.out.println("assegna_per_il_cliente"+att_cliente + "indicei"+i);
 			while(j < AutistiLiberi.size()){
 				String att_autista = AutistiLiberi.get(j);
+				System.out.println("assegna_per_autista"+att_autista + "indicej"+j);
 				while(k < AutomezziLiberi.size()){
 					String att_automezzo = AutomezziLiberi.get(k);
-					System.out.println("inside_test "+att_automezzo);
+					System.out.println("assegna_per_automezzo "+att_automezzo+"indicek"+k);
 					Calendar cal = Calendar.getInstance();
 					cal.add(Calendar.DAY_OF_MONTH, 7);
 					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -212,11 +219,22 @@ public List<String> GetListaAutisti() {
 				    String id_autista = SearchAutista.get_id_autista_by_username(att_autista);
 				    
 				    if(assegnamentocheck.CheckIfAssegnamentoHasRejected(id_automezzo,id_cliente,id_autista,formatted)){
+				    	System.out.println("rejecting_assegnamento");
 						k++;
 				    	continue;
 				    }
 					
-					markup_assegnamenti += "<tr>";
+				    System.out.println("generating_assegnamento_for"+att_automezzo+att_autista+att_cliente);
+				    System.out.println("generating_assegnamento_for_indexes"+i+k+j);
+				    if(results_counter > 5){
+				    	pagination_needed = true;
+				    	elements_number++;
+				    	markup_assegnamenti += "<tr style='display:none;' class='paginatore-enabled result-counter-"+(elements_number/5)+"'>";
+				    } else {
+				    	pagination_needed = false;
+				    	elements_number++;
+				    	markup_assegnamenti += "<tr class='paginatore-enabled result-counter-"+(elements_number/5)+"'>";
+				    }
 					markup_assegnamenti += "<td>"+att_automezzo+"</td>";
 					markup_assegnamenti += "<td>"+att_autista+"</td>";
 					markup_assegnamenti += "<td>"+att_cliente+"</td>";
@@ -224,13 +242,42 @@ public List<String> GetListaAutisti() {
 					markup_assegnamenti += "<td>"+GenerateApprovaAssegnamentoLink(att_cliente,att_autista,att_automezzo)+"</td>";					
 					markup_assegnamenti += "<td>"+GenerateRifiutaAssegnamentoLink(att_cliente,att_autista,att_automezzo)+"</td>";					
 					markup_assegnamenti += "</tr>";
+					results_counter++;
 					k++;
 				}
+				System.out.println("exit_from_k j="+j);
+				k=0;
 				j++;
 			}
+			System.out.println("exit_from_j i="+i);
+			j=0;
 		  i++;
 		}
-		markup_assegnamenti += "</tbody>";
+		markup_assegnamenti += "</tbody></table>";
+		if(pagination_needed){
+			markup_assegnamenti += "<div class='paginatore'><ul>";
+			int pages_number = (elements_number/5)+1;
+			System.out.println("numero_di_pagine"+pages_number);
+			System.out.println("numero_di_elementi"+elements_number);
+			for(int index=1;index<pages_number;index++){
+				markup_assegnamenti += "<li>";
+				int index_to_print = index-1;
+				System.out.println("index_to_print"+index_to_print);
+				System.out.println("index_good"+index);
+				if(index==1){
+				 
+				  markup_assegnamenti += "<span onclick='javascript:pager("+index_to_print+",\"pager-trigger-assegnamenti-generati\")' class='pager-trigger pager-trigger-assegnamenti-generati active'>";
+				  System.out.println("after_first_mk_ass"+markup_assegnamenti);
+				} else {
+				  markup_assegnamenti += "<span onclick='javascript:pager("+index_to_print+",\"pager-trigger-assegnamenti-generati\")' class='pager-trigger pager-trigger-assegnamenti-generati'>";
+				  System.out.println("after_mk_ass"+markup_assegnamenti);
+				}
+				markup_assegnamenti += index;
+				markup_assegnamenti += "</span>";
+				markup_assegnamenti += "</li>";
+			}
+			markup_assegnamenti += "</ul></div>";			
+		}
 		System.out.println("markup_assegnamenti_generati");
 		
 		return markup_assegnamenti;
@@ -243,7 +290,6 @@ public List<String> GetListaAutisti() {
 		AutomezziDao Automezzidbconnection = new AutomezziDao();
 		ClienteDao Clientidbconnection = new ClienteDao();
 		AutistaDao Autistidbconnection = new AutistaDao();
-		
 		try {
 			System.out.println("okkkbueno");
 			Responso += "<tbody>";
@@ -252,8 +298,7 @@ public List<String> GetListaAutisti() {
 				Responso += "<td>"+	Automezzidbconnection.GetTargaAutomezzoById(ListaAssegnamenti.getString("id_automezzo"))+"</td>";
 				Responso += "<td>"+	Clientidbconnection.GetNominativoClienteById(ListaAssegnamenti.getString("id_cliente"))+"</td>";
 				Responso += "<td>"+	Autistidbconnection.GetNominativoAutistaById(ListaAssegnamenti.getString("id_autista"))+"</td>";
-				Responso += "<td>"+	ListaAssegnamenti.getString("data")+"</td>";
-				
+				Responso += "<td>"+	ListaAssegnamenti.getString("data")+"</td>";			
 				String link_switch_map = "<a href='dashboard_amministratore.jsp?id_assegnamento_map=";
 				link_switch_map += ListaAssegnamenti.getString("id");
 				link_switch_map += "'>Visualizza Percorso</a>";
@@ -261,8 +306,7 @@ public List<String> GetListaAutisti() {
 				Responso += "</tr>";
 			}
 			Responso += "</tbody>";
-			System.out.println(Responso);
-			
+			System.out.println(Responso);			
 			return Responso;
 		} catch (Exception e){
 			return Responso;

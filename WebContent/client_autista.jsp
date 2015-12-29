@@ -15,6 +15,13 @@
       else
         mydiv.style.display = 'block';
       }
+	  pager_hide = function() {
+		  var x = document.getElementsByClassName("example");
+		  var i;
+		  for (i = 0; i < x.length; i++) {
+		      x[i].style.backgroundColor = "red";
+		  }
+	  }
     </script>
   </head>
   <body class="page-client-autista autista">
