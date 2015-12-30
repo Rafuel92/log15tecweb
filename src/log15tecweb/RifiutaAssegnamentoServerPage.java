@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class RifiutaAssegnamentoServerPage
@@ -33,6 +34,11 @@ public class RifiutaAssegnamentoServerPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	HttpSession session = request.getSession(false);
+	if(session==null){
+	   RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+       rd.forward(request,response);
+    }else {	
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
@@ -67,6 +73,7 @@ public class RifiutaAssegnamentoServerPage extends HttpServlet {
 		
 		out.close();
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

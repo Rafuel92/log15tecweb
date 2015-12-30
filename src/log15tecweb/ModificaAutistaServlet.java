@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ModificaAutistaServlet
@@ -33,6 +34,11 @@ public class ModificaAutistaServlet extends HttpServlet {
 	response.setContentType("text/html");
 	PrintWriter out = response.getWriter();
 	
+	HttpSession session = request.getSession(false);
+	  if(session==null){
+		     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+		     rd.forward(request,response);
+	  }else {
 	String nome=request.getParameter("nome");
 	String cognome=request.getParameter("cognome");
 	String id_user= request.getParameter("id");
@@ -56,4 +62,5 @@ public class ModificaAutistaServlet extends HttpServlet {
 	out.close();
     }
 
+}
 }

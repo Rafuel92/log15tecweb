@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ModificaAutomezzoServerPage
@@ -41,9 +42,14 @@ public class ModificaAutomezzoServerPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
+	HttpSession session = request.getSession(false);
+	if(session==null){
+        RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+	    rd.forward(request,response);
+	}else {
+	    response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+					  
 		String data_acquisto=request.getParameter("data_acquisto");
 		String targa=request.getParameter("targa");
 		String modello = request.getParameter("modello");
@@ -72,4 +78,5 @@ public class ModificaAutomezzoServerPage extends HttpServlet {
 		out.close();
 	}
 
+}
 }

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CreateAutistaServlet
@@ -31,7 +32,12 @@ public class CreateAutistaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub	
-	    String username=request.getParameter("username");
+		HttpSession session = request.getSession(false);
+	  if(session==null){
+		     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+		     rd.forward(request,response);
+	  }else {
+		String username=request.getParameter("username");
 	    String email=request.getParameter("email");
 	    String password=request.getParameter("password");
 	    String nome=request.getParameter("nome");
@@ -50,6 +56,7 @@ public class CreateAutistaServlet extends HttpServlet {
 	    	RequestDispatcher rd=request.getRequestDispatcher("aggiungi_autista.jsp");
 			rd.include(request,response);
 	    }
+	  }
 	}
 
 	/**

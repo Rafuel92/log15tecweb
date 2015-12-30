@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CancellaAutistaServlet
@@ -31,6 +32,11 @@ public class CancellaAutistaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		if(session==null){
+		     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+		     rd.forward(request,response);
+	    }else {
 		String id_autista = request.getParameter("id_autista");
 		String id=request.getParameter("id");
 		AutistaDao Autistidbconn = new AutistaDao();
@@ -54,6 +60,7 @@ public class CancellaAutistaServlet extends HttpServlet {
 		
 		out.close();
 	}
+}
 
 
 	/**

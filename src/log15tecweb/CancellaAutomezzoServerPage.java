@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CancellaAutomezzoServerPage
@@ -31,6 +32,11 @@ public class CancellaAutomezzoServerPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+	    if(session==null){
+			     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+			     rd.forward(request,response);
+		}else {
 		String id_automezzo = request.getParameter("id_automezzo");
 		AutomezziDao Automezzidbconn = new AutomezziDao();
 		Boolean success = Automezzidbconn.CancellaAutomezzo(id_automezzo);
@@ -53,6 +59,7 @@ public class CancellaAutomezzoServerPage extends HttpServlet {
 		
 		out.close();
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -76,6 +76,19 @@
     </script>
   </head>
   <body class="page-client-amministratore amministratore">
+  <%
+   //allow access only if session exists
+   String user = null;
+   if(session.getAttribute("user") == null){
+	     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
+	     rd.forward(request,response);
+	     System.err.println("SESSIONE NULLA");
+   }else{ 
+	     user = (String) session.getAttribute("user");
+	     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+         response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+	     response.setDateHeader("Expires", 0); 
+%>
     <div class="container contenitore-pagina-amministratore">
       <div class="row">
         <div class="title-wrapper colonna-12">
@@ -168,7 +181,7 @@
 		  output_mappa = gapi.GenerateIframeFromAddress("last");
 		}
 		out.print(output_mappa);
-		%>
+        %>
 	
       </div>
       </div>
@@ -179,3 +192,4 @@
       </footer>
   </body>
 </html>
+<%}%>

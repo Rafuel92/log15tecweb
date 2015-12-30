@@ -7,9 +7,11 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class WelcomeServlet
@@ -33,10 +35,14 @@ public class WelcomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         String usertype=(String) request.getAttribute("usertype");
+        String username=(String) request.getAttribute("username");
         if(usertype.compareToIgnoreCase("a")==0){
         	//APRI DASHBOARD AMMINISTRATORI
-        	RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
-			rd.include(request,response);
+        	HttpSession session = request.getSession();
+            session.setAttribute("user", username);
+            //setting session to expiry in 1 min
+            session.setMaxInactiveInterval(1*10);
+            response.sendRedirect("dashboard_amministratore.jsp");
         }
         if(usertype.compareToIgnoreCase("d")==0){
         	//APRI PAGINA AUTISTI

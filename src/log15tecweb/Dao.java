@@ -16,11 +16,11 @@ public class Dao {
 			return null;
 		}
 		//DATI DATABASE
-		String nomedb="log15tecnweb";
+		String nomedb="log15tecweb";
 		String address="localhost";
 		String porta="3306";
-	    String userDB="root";
-		String passDB="root";
+	    String userDB="admin";
+		String passDB="admin";
 	    try {
 		  Class.forName("com.mysql.jdbc.Driver");
 		  conn= DriverManager.getConnection("jdbc:mysql://"+address+":"+porta + "/" + nomedb, userDB, passDB);
