@@ -73,6 +73,26 @@
       else
         mydiv.style.display = 'block';
       }
+      pager = function(number,pager_class){    	  
+	      var x = document.getElementsByClassName(pager_class);
+	      var i;
+	      for (i = 0; i < x.length; i++) {
+	    	  console.log(x[i]);
+	    	  x[i].className = x[i].className.replace('active','');
+	      }
+	      event.target.className = event.target.className + " active";
+	      console.log(this.className);
+	      var x = document.getElementsByClassName("paginatore-enabled");
+	      var i;
+	      for (i = 0; i < x.length; i++) {
+	          x[i].style.display = "none";
+	      }
+	      var x = document.getElementsByClassName("result-counter-"+number);
+	      var i;
+	      for (i = 0; i < x.length; i++) {
+	          x[i].style.display = "table-row";
+	      }
+      }
     </script>
   </head>
   <body class="page-client-amministratore amministratore">
@@ -109,20 +129,7 @@
         </div>
         <div class="colonna-5 amministratore-block assegnamenti-proposti">
           <h2 class="amministratore-block-heading">Assegnamenti Proposti</h2>
-          <table class="amministratore-table table">
-            <thead>
-            <tr>
-               <th>Automezzo</th>
-               <th>Autista</th>
-               <th>Cliente</th>
-               <th>Data</th>
-               <th>Azioni</th>
-            </tr>
-            </thead>
-            <tbody>
             <%=printAssegnamentiProposti() %>
-            </tbody>
-          </table>
         </div>
         <div class="colonna-5 amministratore-block gestione-autisti">
           <h2 class="amministratore-block-heading">Gestione Autisti<a href="aggiungi_autista.jsp">Aggiungi Autista</a></h2>
