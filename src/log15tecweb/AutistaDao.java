@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class AutistaDao extends Dao{
 	public Connection connessione;
@@ -13,6 +15,32 @@ public class AutistaDao extends Dao{
 	public ResultSet GetListaAutisti(){
 		try{
 			  PreparedStatement ps=connessione.prepareStatement("select username from user,autisti where user.id=autisti.user_reference");
+			  ResultSet rs=ps.executeQuery();
+			  return rs;
+			} catch (SQLException e) {
+				  String error="Problemi di connessione col DB" + e.getMessage();
+				  System.out.println("2"+error);
+			} catch(Exception e){
+				 String error="Driver JDBC non trovato"+ e.getMessage();
+				 System.out.println(error);
+			}
+		return null;
+	}
+	
+	public ResultSet GetListaAssegnamentiOdierniByUsername(String username_autista){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(cal.getTime());
+		String formatted = format1.format(cal.getTime());
+		String id_autista = get_id_autista_by_username(username_autista);
+		//query con data odierna
+		String query =  "SELECT * FROM assegnamenti WHERE data LIKE '%"+formatted+"%' AND id_autista="+id_autista+" ORDER BY data ASC";
+		//SELECT * FROM assegnamenti WHERE assegnamenti.data LIKE '%2015-12-29%' AND assegnamenti.id_autista="7" ORDER BY data ASC
+
+		
+		System.out.println("query_estrazione_ass_odierni"+query);
+		try{
+			  PreparedStatement ps=connessione.prepareStatement(query);
 			  ResultSet rs=ps.executeQuery();
 			  return rs;
 			} catch (SQLException e) {

@@ -1,7 +1,8 @@
 package log15tecweb;
 
 
-	import java.util.Date;
+	import java.util.Calendar;
+import java.util.Date;
 	import java.text.DateFormat;
 	import java.text.SimpleDateFormat;
 	import java.sql.ResultSet;
@@ -23,6 +24,40 @@ package log15tecweb;
 		
 		public static Boolean getStato() {
 			return false;
+		}
+		
+		public String PrintGiornataAutistaByUsername(String Username) {
+			AutistaDao autistadbconnection = new AutistaDao();
+			String Responso = "";
+			ResultSet ListaAssegnamenti = autistadbconnection.GetListaAssegnamentiOdierniByUsername(Username);
+			AutomezziDao Automezzidbconnection = new AutomezziDao();
+			ClienteDao Clientidbconnection = new ClienteDao();
+			try {
+				System.out.println("okkkbueno");
+				Responso += "<div>";
+				Boolean passed = false;
+				while(ListaAssegnamenti.next()){
+					passed = true;
+					Responso += "<div class='giornata-autista-element'>";
+					Responso += "<div>"+	Automezzidbconnection.GetTargaAutomezzoById(ListaAssegnamenti.getString("id_automezzo"))+"</div>";
+					Responso += "<div>"+	Clientidbconnection.GetNominativoClienteById(ListaAssegnamenti.getString("id_cliente"))+"</div>";
+					Responso += "<div>"+	ListaAssegnamenti.getString("data")+"</div>";			
+					/*String link_switch_map = "<a href='dashboard_amministratore.jsp?id_assegnamento_map=";
+					link_switch_map += ListaAssegnamenti.getString("id");
+					link_switch_map += "'>Visualizza Percorso</a>";
+					Responso += "<div>"+	link_switch_map+"</div>";*/
+					Responso += "</div>";
+				}
+				if(!passed){
+					return "Nessun assegnamento per questa giornata";
+				}
+				Responso += "</div>";
+				System.out.println("responso_giornata_autista");
+				System.out.println(Responso);			
+				return Responso;
+			} catch (Exception e){
+				return Responso;
+			}			
 		}
 		
 		public Boolean insertAutomezzo(String targa, String modello, String data_acquisto) {
