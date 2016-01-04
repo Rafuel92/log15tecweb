@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class WelcomeServlet
@@ -37,8 +38,12 @@ public class WelcomeServlet extends HttpServlet {
 
         if(usertype.compareToIgnoreCase("a")==0){
         	//APRI DASHBOARD AMMINISTRATORI
-        	RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
-			rd.include(request,response);
+        	HttpSession session=request.getSession();
+        	session.setAttribute("user", username);
+        	session.setMaxInactiveInterval(10); //Numero di secondi dopo il quale la sessione scadrà
+        	response.sendRedirect("dashboard_amministratore.jsp");
+        	/*RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+			rd.include(request,response);*/
         }
         if(usertype.compareToIgnoreCase("d")==0){
         	//APRI PAGINA AUTISTI
