@@ -171,7 +171,7 @@ public class AutistaDao extends Dao{
 			String iduser=nextidvalue.toString();
 			System.out.println("OTTENUTO ID PER TABELL AUTISTI");
 			//INSERISCO I DATI DELL'AUTISTA IN USER
-	    	String query="INSERT INTO user value ("+iduser+",\"d\",\""+username+"\",\""+email+"\",\""+password+"\",\""+nome+"\",\""+cognome+"\")";
+	    	String query="INSERT INTO user value ("+iduser+",\"d\",\""+username+"\",\""+email+"\",MD5(\""+password+"\"),\""+nome+"\",\""+cognome+"\")";
 			ps=connessione.prepareStatement(query);
 			ps.executeUpdate();
 			System.out.println("INSERITA TUPLA IN USER");

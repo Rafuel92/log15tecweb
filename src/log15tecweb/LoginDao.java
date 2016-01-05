@@ -8,7 +8,7 @@ public class LoginDao extends Dao {
 	}
 	public ResultSet validate(String name,String pass){
 	try{
-		PreparedStatement ps=connessione.prepareStatement("select usertype from user where username=\""+name+" \" and password=\""+ pass +"\"");
+		PreparedStatement ps=connessione.prepareStatement("select usertype from user where username=\""+name+" \" and password=MD5(\""+ pass +"\")");
 		ResultSet rs=ps.executeQuery();
 		if(rs.next()){ //se trova utenti con quelle credenziali
 			System.out.println("ok");

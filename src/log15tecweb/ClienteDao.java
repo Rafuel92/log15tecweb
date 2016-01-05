@@ -171,7 +171,7 @@ public class ClienteDao extends Dao{
 			Long nextidvalue= (rs.getLong(1)+1);   //incremento l'id massimo per ottenere il prossimo id 
 			String iduser=nextidvalue.toString();
 			//INSERISCO I DATI DEL CLIENTE IN USER
-	    	String query="INSERT INTO user value ("+iduser+",\"c\",\""+username+"\",\""+email+"\",\""+password+"\",\""+nome+"\",\""+cognome+"\")";
+	    	String query="INSERT INTO user value ("+iduser+",\"c\",\""+username+"\",\""+email+"\",MD5(\""+password+"\"),\""+nome+"\",\""+cognome+"\")";
 			ps=connessione.prepareStatement(query);
 			ps.executeUpdate();
 			System.out.println("INSERITA TUPLA IN USER");
