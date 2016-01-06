@@ -99,6 +99,8 @@
   <%
    //allow access only if session exists
    String user = null;
+  System.out.println("testart");
+  System.out.println("attruser_session"+session.getAttribute("user"));   
    if(session.getAttribute("user") == null){
 	     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
 	     rd.forward(request,response);

@@ -35,12 +35,11 @@ public class WelcomeServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         String usertype=(String) request.getAttribute("usertype");
         String username=(String) request.getAttribute("username");
-
+    	HttpSession session=request.getSession();
+    	session.setAttribute("user", username);
+    	session.setMaxInactiveInterval(100); //Numero di secondi dopo il quale la sessione scadrï¿½
         if(usertype.compareToIgnoreCase("a")==0){
         	//APRI DASHBOARD AMMINISTRATORI
-        	HttpSession session=request.getSession();
-        	session.setAttribute("user", username);
-        	session.setMaxInactiveInterval(10); //Numero di secondi dopo il quale la sessione scadrà
         	response.sendRedirect("dashboard_amministratore.jsp");
         	/*RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
 			rd.include(request,response);*/

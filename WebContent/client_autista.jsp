@@ -49,7 +49,7 @@
    	   		String toprint;
    			try {
    				 gestoreAutisti AutistiClass = new gestoreAutisti();
-   				 toprint = AutistiClass.PrintGiornataAutistaByUsername(request.getParameter("username"));
+   				 toprint = AutistiClass.PrintGiornataAutistaByUsername(request.getParameter("username"),"CURRENT_DATE","r");
    				} catch(Exception e){
    					 toprint = "ERRORE CLIENTI: "+e.getMessage();
    				}
@@ -90,6 +90,20 @@
       </div>
       <div class="altre-info">
         <a class="segnala-problema" href="#">Altre info</a>
+      </div>
+      <div class="mappa-situazione-attuale colonna-12">
+		<% 
+		String id_assegnamento = request.getParameter("id_assegnamento_map"); 
+		GoogleApiConsumer gapi = new GoogleApiConsumer();
+		String output_mappa;
+		if(null != id_assegnamento){
+		  output_mappa = gapi.GenerateIframeFromAddress(id_assegnamento);
+		} else {
+		  output_mappa = gapi.GenerateIframeFromAddress("last");
+		}
+		out.print(output_mappa);
+        %>
+	
       </div>
       <div class="logout-wrap">
         <form action="logout" method="POST" class="logout-form">

@@ -31,6 +31,23 @@ public class AssegnamentiDao extends Dao {
 		return null;		
 	}
 
+	public ResultSet ReadListaAssegnamentiofAutistaInData(String id_autista,String data){
+	    try{
+		  PreparedStatement ps=connessione.prepareStatement("select * from assegnamenti WHERE assegnamenti.approvato=1 AND id_autista="+id_autista+ "AND data LIKE '%"+data+"% ORDER BY assegnamenti.data DESC");
+		  ResultSet rs=ps.executeQuery();
+		  if(null!= rs){
+			System.out.println("ok_ci_sono_assegnamenti_buoni");
+		    return rs;
+		  }
+		} catch (SQLException e) {
+			  String error="Problemi di connessione col DB" + e.getMessage();
+			  System.out.println("2"+error);
+		} catch(Exception e){
+			 String error="Driver JDBC non trovato"+ e.getMessage();
+			 System.out.println(error);
+		}
+		return null;		
+	}
 	
 	public ResultSet GetAssegnamentoById(String id_assegnamento){
 	    try{

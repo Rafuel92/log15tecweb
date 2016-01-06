@@ -27,14 +27,17 @@ public class AutistaDao extends Dao{
 		return null;
 	}
 	
-	public ResultSet GetListaAssegnamentiOdierniByUsername(String username_autista){
+	public ResultSet GetListaAssegnamentiByUsernameAndDate(String username_autista,String date){
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(cal.getTime());
 		String formatted = format1.format(cal.getTime());
+		if (date!="CURRENT_DATE") {
+			formatted = date;
+		}
 		String id_autista = get_id_autista_by_username(username_autista);
 		//query con data odierna
-		String query =  "SELECT * FROM assegnamenti WHERE data LIKE '%"+formatted+"%' AND id_autista="+id_autista+" ORDER BY data ASC";
+		String query =  "SELECT * FROM assegnamenti WHERE approvato=1 AND data LIKE '%"+formatted+"%' AND id_autista="+id_autista+" ORDER BY data ASC";
 		//SELECT * FROM assegnamenti WHERE assegnamenti.data LIKE '%2015-12-29%' AND assegnamenti.id_autista="7" ORDER BY data ASC
 
 		

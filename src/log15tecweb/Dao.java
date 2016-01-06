@@ -8,19 +8,19 @@ public class Dao {
 	public static Connection getDatabaseConnection() {
 		try {
 			if(conn!=null && !conn.isClosed()){
-				System.out.println("connessione_singleton");
+				System.out.println("connessione_single_open");
 				return conn;
 			}
 		} catch (SQLException e1) {
-			System.out.println("errore_connessione_singleton");
+			System.out.println("connessione_single_problem");
 			return null;
 		}
 		//DATI DATABASE
-		String nomedb="log15tecweb";
+		String nomedb="log15tecnweb";
 		String address="localhost";
 		String porta="3306";
-	    String userDB="admin";
-		String passDB="admin";
+	    String userDB="root";
+		String passDB="root";
 	    try {
 		  Class.forName("com.mysql.jdbc.Driver");
 		  conn= DriverManager.getConnection("jdbc:mysql://"+address+":"+porta + "/" + nomedb, userDB, passDB);
