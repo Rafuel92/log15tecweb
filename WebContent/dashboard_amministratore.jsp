@@ -99,8 +99,6 @@
   <%
    //allow access only if session exists
    String user = null;
-  System.out.println("testart");
-  System.out.println("attruser_session"+session.getAttribute("user"));   
    if(session.getAttribute("user") == null){
 	     RequestDispatcher rd=request.getRequestDispatcher("FineSessioneServlet");
 	     rd.forward(request,response);
@@ -129,9 +127,19 @@
               <%= printAutomezzi() %>
           </table>
         </div>
-        <div class="colonna-5 amministratore-block assegnamenti-proposti">
-          <h2 class="amministratore-block-heading">Assegnamenti Proposti</h2>
-            <%=printAssegnamentiProposti() %>
+        <div class="colonna-5 amministratore-block ultimi-assegnamenti-approvati">
+          <h2 class="amministratore-block-heading">Ultimi assegnamenti approvati<a href="Schedula_assegnamenti.jsp">Approva Assegnamenti</a></h2></h2>
+          <table class="amministratore-table table">
+            <thead>
+            <tr>
+               <th>Automezzo</th>
+               <th>Cliente</th>
+               <th>Autista</th>
+               <th>Data</th>
+            </tr>
+            </thead>
+            <%= printAssegnamentiApprovati() %>
+          </table>
         </div>
         <div class="colonna-5 amministratore-block gestione-autisti">
           <h2 class="amministratore-block-heading">Gestione Autisti<a href="aggiungi_autista.jsp">Aggiungi Autista</a></h2>
@@ -165,20 +173,7 @@
             </tbody>
           </table>
         </div>
-        <div class="colonna-5 amministratore-block ultimi-assegnamenti-approvati">
-          <h2 class="amministratore-block-heading">Ultimi assegnamenti approvati</h2>
-          <table class="amministratore-table table">
-            <thead>
-            <tr>
-               <th>Automezzo</th>
-               <th>Cliente</th>
-               <th>Autista</th>
-               <th>Data</th>
-            </tr>
-            </thead>
-            <%= printAssegnamentiApprovati() %>
-          </table>
-        </div>
+        
       <div class="mappa-situazione-attuale colonna-12">
 		<% 
 		String id_assegnamento = request.getParameter("id_assegnamento_map"); 

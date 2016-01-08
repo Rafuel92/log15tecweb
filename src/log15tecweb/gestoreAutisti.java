@@ -6,6 +6,7 @@ import java.util.Date;
 	import java.text.DateFormat;
 	import java.text.SimpleDateFormat;
 	import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 	public class gestoreAutisti {
@@ -25,6 +26,83 @@ import java.util.Date;
 		public static Boolean getStato() {
 			return false;
 		}
+		
+		
+		
+		
+		public String Stampa_lista_autisti_per_assegnamenti() {
+			AutistaDao autista=new AutistaDao();
+			ResultSet rs=autista.get_lista_autisti();
+			System.out.println("prova");
+			//Calcolo la data
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_MONTH, 7);
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println(cal.getTime());
+			String data = format1.format(cal.getTime());
+			System.out.println(data);
+			//
+			int results_counter=0;
+			String markup_lista_autisti="";
+			markup_lista_autisti += "<table class='amministratore-table table'>";
+			markup_lista_autisti += "<thead><tr><th>Nome</th><th>Cognome</th><th>Azione</th></tr></thead>";
+			markup_lista_autisti += "<tbody>";
+			boolean pagination_needed=false;
+			try {
+				while(rs.next()){
+					System.out.println("PAGINAZIONE N: "+results_counter);
+					markup_lista_autisti += "<tr class='paginatore-enabled result-counter-"+(results_counter/5)+"'>";  //DA CANCELLARE PER LA PAGINAZIONE
+					if(results_counter > 5){
+						System.out.println("PAGINAZIONE SI");
+					   	pagination_needed = true;
+				    	//markup_lista_autisti += "<tr style='display:none;' class='paginatore-enabled result-counter-"+(results_counter/5)+"'>";
+				   } else {
+					   	pagination_needed = false;
+					   //	markup_lista_autisti += "<tr class='paginatore-enabled result-counter-"+(results_counter/5)+"'>";
+				   }
+					results_counter++;
+					markup_lista_autisti+="<td>"+ rs.getString("nome")+"</td>";
+					markup_lista_autisti+="<td>"+ rs.getString("cognome")+"</td>";
+					markup_lista_autisti+="<td><a class='approve-link' href='Schedula_Assegnamenti_Giornata_Autista?id_autista="+rs.getString("id")+"&data="+data+"'>Seleziona autista</a></td>";
+					markup_lista_autisti+="</tr>";		
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			markup_lista_autisti += "</tbody></table>";
+            /*if(pagination_needed){
+    			markup_lista_autisti += "<div class='paginatore'><ul>";
+    			int pages_number = (results_counter/5)+1;
+    			System.out.println("numero_di_pagine"+pages_number);
+    			System.out.println("numero_di_elementi"+results_counter);
+    			for(int index=1;index<pages_number;index++){
+    				markup_lista_autisti += "<li>";
+    				int index_to_print = index-1;
+    				System.out.println("index_to_print"+index_to_print);
+    				System.out.println("index_good"+index);
+    				if(index==1){
+    				 
+    				  markup_lista_autisti += "<span onclick='javascript:pager("+index_to_print+",\"pager-trigger-assegnamenti-generati\")' class='pager-trigger pager-trigger-assegnamenti-generati active'>";
+    				  System.out.println("after_first_mk_ass"+markup_lista_autisti);
+    				} else {
+    				  markup_lista_autisti += "<span onclick='javascript:pager("+index_to_print+",\"pager-trigger-assegnamenti-generati\")' class='pager-trigger pager-trigger-assegnamenti-generati'>";
+    				  System.out.println("after_mk_ass"+markup_lista_autisti);
+    				}
+    				markup_lista_autisti += index;
+    				markup_lista_autisti += "</span>";
+    				markup_lista_autisti += "</li>";
+    			}
+    			markup_lista_autisti += "</ul></div>";			
+    		}*/
+            if(results_counter==0){
+            	return "<tbody>Non ci sono Autisti, inserirli nella sezione \"Gestione Autisti\" nella dashboard</tbody>";
+            }
+			System.out.println(markup_lista_autisti);
+			return markup_lista_autisti;
+		}
+		
+		
 		
 		public String PrintGiornataAutistaByUsername(String Username,String data, String mode) {
 			AutistaDao autistadbconnection = new AutistaDao();

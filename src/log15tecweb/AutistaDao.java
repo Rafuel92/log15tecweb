@@ -12,6 +12,26 @@ public class AutistaDao extends Dao{
 		connessione = super.getDatabaseConnection();
 	}
 
+	
+	
+	
+	public ResultSet get_lista_autisti(){ //RESTITUISCE NOME,COGNOME E ID AUTISTA PER TUTTI GLI AUTISTI
+		PreparedStatement ps;
+		ResultSet rs=null;
+		try {
+			ps = connessione.prepareStatement("select nome,cognome,a.id from user join autisti as a on user.id=a.user_reference");
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	
+	
+	
+	
 	public ResultSet GetListaAutisti(){
 		try{
 			  PreparedStatement ps=connessione.prepareStatement("select username from user,autisti where user.id=autisti.user_reference");

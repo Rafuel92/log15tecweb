@@ -47,19 +47,20 @@ public class RifiutaAssegnamentoServerPage extends HttpServlet {
 		String id_cliente=request.getParameter("id_cliente");
 		String approvato = "0";
 		
-		Calendar cal = Calendar.getInstance();
+		/*Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, 7);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		System.out.println(cal.getTime());
 
-		String data = format1.format(cal.getTime());		
+		String data = format1.format(cal.getTime());*/
+		String data = request.getParameter("data");
 		
 		AssegnamentiDao Assegnamentidb= new AssegnamentiDao();
 		Boolean success = Assegnamentidb.inserisciAssegnamento(approvato,data,id_cliente,id_automezzo,id_autista);		
 		if(success){
 			try{
 				out.print("<div class='messages container ok'>Assegnamento Rifiutato correttamente</div>");
-				RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("Schedula_assegnamenti.jsp");
 				rd.include(request,response);
 			}catch (Exception e){
 				out.println("PROBLEMI NELLA COSTRUZIONE DEL RESPONSO");
@@ -67,7 +68,7 @@ public class RifiutaAssegnamentoServerPage extends HttpServlet {
 		}
 		else{
 			out.print("<div class='messages container error'>Problema nell rifiuto di un assegnamento</div>");
-			RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("Schedula_assegnamenti.jsp");
 			rd.include(request,response);
 		}
 		

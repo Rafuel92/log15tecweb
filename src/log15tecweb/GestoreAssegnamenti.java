@@ -176,7 +176,123 @@ public List<String> GetListaAutisti() {
     SetAutistiLiberi();
     SetAutomezziLiberi();
   }
-  public String GeneratePossibiliAssegnamenti() {
+  
+  
+  
+  
+  public int calcola_num_assegnamenti(String id_autista,Calendar cal){ //calcola il numero di assegnamenti
+	  AssegnamentiDao ass=new AssegnamentiDao();                       //già assegnati all'autista per scegliere
+	  int n=ass.get_num_assegnamenti(id_autista,cal);                  //l'ora del prossimo assegnamento 
+	  if(n>4)
+		  n++; //CONTA L'ORA DI SPACCO
+	  return n;
+  }
+
+  
+  public String GeneratePossibiliAssegnamenti2(String id_autista,String data) {
+        AssegnamentiDao assegnamentocheck = new AssegnamentiDao();
+	  	String markup_assegnamenti = "";
+	  	int i = 0;
+		int k = 0;
+		int results_counter = 0;
+		boolean pagination_needed = false;
+		markup_assegnamenti += "<table class='amministratore-table table'>";
+		markup_assegnamenti += "<thead><tr><th>Automezzo</th><th>Cliente</th><th>Data</th><th>Ora</th><th>Azioni</th></tr></thead>";
+		markup_assegnamenti += "<tbody>";
+		if(ClientiInAttesa.size() == 0 || AutomezziLiberi.size()==0){
+			return "<tbody>Non ci sono Assegnamenti Possibili</tbody>";
+		}
+		while(i < ClientiInAttesa.size()){
+			String att_cliente = ClientiInAttesa.get(i);
+			System.out.println("assegna_per_il_cliente"+att_cliente + "indicei"+i);
+				while(k < AutomezziLiberi.size()){
+					String att_automezzo = AutomezziLiberi.get(k);
+					System.out.println("assegna_per_automezzo "+att_automezzo+"indicek"+k);
+					//Calcola la data in cui verrà proposto l'assegnamento
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.DAY_OF_MONTH, 7);
+					int num_di_assegnamenti=calcola_num_assegnamenti(id_autista,cal);
+					System.err.println("ecco il numeri di assegnamenti: " +String.valueOf(num_di_assegnamenti));
+					cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH),8+num_di_assegnamenti, 0);
+					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat format2 = new SimpleDateFormat("HH-mm");
+					System.out.println(cal.getTime());
+					String formatteddata = format1.format(cal.getTime());
+					String formattedora=format2.format(cal.getTime());
+					System.out.println(formatteddata);
+					System.out.println("superdata");
+					AutomezziDao SearchAutomezzi= new AutomezziDao();
+				    String id_automezzo = SearchAutomezzi.Get_id_AutomezzoByTarga(att_automezzo);
+				    ClienteDao SearchCliente = new ClienteDao();
+					String id_cliente = SearchCliente.get_id_cliente_by_nome(att_cliente);
+				    AutistaDao SearchAutista = new AutistaDao();
+				    SimpleDateFormat format3= new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+				    String datatot=format3.format(cal.getTime());
+				    if(assegnamentocheck.CheckIfAssegnamentoHasRejected(id_automezzo,id_cliente,id_autista,datatot)){
+				    	System.out.println("rejecting_assegnamento");
+						k++;
+						continue;
+				    }
+				    if(results_counter < -1){  //SOSTITUIRE IL -1 CON 5 PER LA PAGINAZIONE
+				    	pagination_needed = true;
+				    	markup_assegnamenti += "<tr style='display:none;' class='paginatore-enabled result-counter-"+(results_counter/5)+"'>";
+				    } else {
+				    	pagination_needed = false;
+				    	markup_assegnamenti += "<tr class='paginatore-enabled result-counter-"+(results_counter/5)+"'>";
+				    }
+					markup_assegnamenti += "<td>"+att_automezzo+"</td>";
+					markup_assegnamenti += "<td>"+att_cliente+"</td>";
+					markup_assegnamenti += "<td>"+formatteddata+"</td>";
+					markup_assegnamenti += "<td>"+formattedora+"</td>";
+					System.out.println("ECCO gli id: #"+id_cliente+"# #"+id_autista+"# #"+id_automezzo+"#");
+					markup_assegnamenti += "<td>"+GenerateApprovaAssegnamentoLink(id_cliente,id_autista,id_automezzo,datatot)+"</td>";					
+					markup_assegnamenti += "<td>"+GenerateRifiutaAssegnamentoLink(id_cliente,id_autista,id_automezzo,datatot)+"</td>";					
+					markup_assegnamenti += "</tr>";
+					results_counter++;
+					k++;
+				}
+				k=0;
+		  i++;
+		}
+		markup_assegnamenti += "</tbody></table>";
+		/*if(pagination_needed){
+			markup_assegnamenti += "<div class='paginatore'><ul>";
+			int pages_number = (results_counter/5)+1;
+			System.out.println("numero_di_pagine"+pages_number);
+			System.out.println("numero_di_elementi"+results_counter);
+			for(int index=1;index<pages_number;index++){
+				markup_assegnamenti += "<li>";
+				int index_to_print = index-1;
+				System.out.println("index_to_print"+index_to_print);
+				System.out.println("index_good"+index);
+				if(index==1){
+				 
+				  markup_assegnamenti += "<span onclick='javascript:pager("+index_to_print+",\"paginatore-enabled\")' class='pager-trigger pager-trigger-assegnamenti-generati active'>";
+				  System.out.println("after_first_mk_ass"+markup_assegnamenti);
+				} else {
+				  markup_assegnamenti += "<span onclick='javascript:pager("+index_to_print+",\"paginatore-enabled\")' class='pager-trigger pager-trigger-assegnamenti-generati'>";
+				  System.out.println("after_mk_ass"+markup_assegnamenti);
+				}
+				markup_assegnamenti += index;
+				markup_assegnamenti += "</span>";
+				markup_assegnamenti += "</li>";
+			}
+			markup_assegnamenti += "</ul></div>";			
+		}*/
+		System.out.println("markup_assegnamenti_generati");
+		
+		return markup_assegnamenti;
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ /* public String GeneratePossibiliAssegnamenti() { //SE TT VA BN SI PUO CANCELLARE
 	  	System.out.println("GeneratePossibiliAssegnamenti");
 	  	System.out.println("AutomezziLiberi "+ AutomezziLiberiRaw);
 	  	System.out.println("AutistiLiberi "+AutistiLiberiRaw);
@@ -281,7 +397,7 @@ public List<String> GetListaAutisti() {
 		System.out.println("markup_assegnamenti_generati");
 		
 		return markup_assegnamenti;
-  }
+  }*/
   
   public String PrintAssegnamentiApprovati() {
 		String Responso = "";
@@ -313,28 +429,28 @@ public List<String> GetListaAutisti() {
 		}
   }
   
-  public String GenerateApprovaAssegnamentoLink(String att_cliente, String att_autista, String att_automezzo){
-	AutomezziDao SearchAutomezzi= new AutomezziDao();
-    String id_automezzo = SearchAutomezzi.Get_id_AutomezzoByTarga(att_automezzo);
+  public String GenerateApprovaAssegnamentoLink(String id_cliente, String id_autista, String id_automezzo,String data){
+	/*AutomezziDao SearchAutomezzi= new AutomezziDao();
+    String id_automezzo = SearchAutomezzi.Get_id_AutomezzoByTarga(id_automezzo);
     ClienteDao SearchCliente = new ClienteDao();
 	String id_cliente = SearchCliente.get_id_cliente_by_nome(att_cliente);
     AutistaDao SearchAutista = new AutistaDao();
-    String id_autista = SearchAutista.get_id_autista_by_username(att_autista);
+    String id_autista = SearchAutista.get_id_autista_by_username(att_autista);*/
     if(id_autista!=null && id_cliente!=null &&id_automezzo!=null){
-        return "<a class='approve-link' href='approva-assegnamento?id_automezzo="+id_automezzo+"&id_cliente="+id_cliente+"&id_autista="+id_autista+"'>Approva</a>";
+        return "<a class='approve-link' href='approva-assegnamento?id_automezzo="+id_automezzo+"&id_cliente="+id_cliente+"&id_autista="+id_autista+"&data="+data+"'>Approva</a>";
     }
     return "Non disponibile";
   }
   
-  public String GenerateRifiutaAssegnamentoLink(String att_cliente, String att_autista, String att_automezzo){
-	AutomezziDao SearchAutomezzi= new AutomezziDao();
+  public String GenerateRifiutaAssegnamentoLink(String id_cliente, String id_autista, String id_automezzo,String data){
+	/*AutomezziDao SearchAutomezzi= new AutomezziDao();
     String id_automezzo = SearchAutomezzi.Get_id_AutomezzoByTarga(att_automezzo);
     ClienteDao SearchCliente = new ClienteDao();
 	String id_cliente = SearchCliente.get_id_cliente_by_nome(att_cliente);
     AutistaDao SearchAutista = new AutistaDao();
-    String id_autista = SearchAutista.get_id_autista_by_username(att_autista);
+    String id_autista = SearchAutista.get_id_autista_by_username(att_autista);*/
     if(id_autista!=null && id_cliente!=null &&id_automezzo!=null){
-        return "<a class='rifiuta-link' href='rifiuta-assegnamento?id_automezzo="+id_automezzo+"&id_cliente="+id_cliente+"&id_autista="+id_autista+"'>Rifiuta</a>";
+        return "<a class='rifiuta-link' href='rifiuta-assegnamento?id_automezzo="+id_automezzo+"&id_cliente="+id_cliente+"&id_autista="+id_autista+"&data="+data+"'>Rifiuta</a>";
     }
     return "Non disponibile";
   }

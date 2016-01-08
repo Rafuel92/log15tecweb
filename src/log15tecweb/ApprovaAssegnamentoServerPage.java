@@ -45,21 +45,21 @@ public class ApprovaAssegnamentoServerPage extends HttpServlet {
 		String id_autista=request.getParameter("id_autista");
 		String id_cliente=request.getParameter("id_cliente");
 		String approvato = "1";
-		Calendar cal = Calendar.getInstance();
+		/*Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, 7);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		System.out.println(cal.getTime());
 		String formatted = format1.format(cal.getTime());
 		System.out.println(formatted);
-		System.out.println("superdata");
-		String data = formatted;
+		System.out.println("superdata");*/
+		String data = request.getParameter("data");
 		
 		AssegnamentiDao Assegnamentidb= new AssegnamentiDao();
 		Boolean success = Assegnamentidb.inserisciAssegnamento(approvato,data,id_cliente,id_automezzo,id_autista);		
 		if(success){
 			try{
 				out.print("<div class='messages container ok'>Assegnamento Approvato correttamente</div>");
-				RequestDispatcher rd=request.getRequestDispatcher("dashboard_amministratore.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("Schedula_assegnamenti.jsp");
 				rd.include(request,response);
 			}catch (Exception e){
 				out.println("PROBLEMI NELLA COSTRUZIONE DEL RESPONSO");

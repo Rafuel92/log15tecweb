@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,27 @@ public class AssegnamentiDao extends Dao {
 	public AssegnamentiDao() {
 		connessione = super.getDatabaseConnection();
 	}
+	
+	
+	public int get_num_assegnamenti(String id_autista,Calendar cal){
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(cal.getTime());
+		String formatted = format1.format(cal.getTime());
+		ResultSet rs=null;
+		try{
+			  PreparedStatement ps=connessione.prepareStatement("select count(*) as tot from assegnamenti WHERE assegnamenti.id_autista="+id_autista+" and DATE_FORMAT(assegnamenti.data,'%Y-%m-%d')='"+formatted+"' And assegnamenti.approvato=1");
+			  rs=ps.executeQuery();
+			  if(rs.next()){
+				int n=Integer.parseInt(rs.getString("tot"));
+				System.out.println("RISULTATO GET NUM ASSEGNAMENTI;" +n);
+			    return n;
+			  }
+		    }catch (Exception e){e.printStackTrace();}
+		return 0;
+	}
+	
+	
+	
 
 	public ResultSet ReadListaAssegnamenti(){
 	    try{
@@ -159,14 +181,14 @@ public class AssegnamentiDao extends Dao {
 	}
 
 	public boolean CheckIfAssegnamentoHasRejected(String id_automezzo, String id_cliente, String id_autista, String data) {
-	    try{
+	    try{ 
 	      String Query = "select * from assegnamenti WHERE ";
-	     // Query += "assegnamenti.approvato=0 AND ";
+	      Query += "assegnamenti.approvato=0 AND ";
 	      Query += "assegnamenti.id_cliente="+id_cliente+" AND ";
 	      Query += "assegnamenti.id_autista="+id_autista+" AND ";
 	      Query += "assegnamenti.id_automezzo="+id_automezzo+" AND ";
-
-	      Query += "assegnamenti.data LIKE '%"+data+"%'";
+          Query +="DATE_FORMAT(assegnamenti.data,'%Y-%m-%d-%H-%i')='"+data+"'";
+	      //Query += "assegnamenti.data LIKE '%"+data+"%'";
 	      System.out.println("check");
 	      System.out.println(Query);
 		  PreparedStatement ps=connessione.prepareStatement(Query);

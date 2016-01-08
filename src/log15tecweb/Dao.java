@@ -19,8 +19,8 @@ public class Dao {
 		String nomedb="log15tecnweb";
 		String address="localhost";
 		String porta="3306";
-	    String userDB="root";
-		String passDB="root";
+	    String userDB="admin";
+		String passDB="admin";
 	    try {
 		  Class.forName("com.mysql.jdbc.Driver");
 		  conn= DriverManager.getConnection("jdbc:mysql://"+address+":"+porta + "/" + nomedb, userDB, passDB);
