@@ -55,7 +55,10 @@ public class AssegnamentiDao extends Dao {
 
 	public ResultSet ReadListaAssegnamentiofAutistaInData(String id_autista,String data){
 	    try{
-		  PreparedStatement ps=connessione.prepareStatement("select * from assegnamenti WHERE assegnamenti.approvato=1 AND id_autista="+id_autista+ "AND data LIKE '%"+data+"% ORDER BY assegnamenti.data DESC");
+	      String Query = "select * from assegnamenti WHERE assegnamenti.approvato=1 AND id_autista="+id_autista+ " AND data LIKE '%"+data+"%' ORDER BY assegnamenti.data DESC";
+	      System.out.println("read_lista_assegnamenti_in_data_query");
+	      System.out.println(Query);
+		  PreparedStatement ps=connessione.prepareStatement(Query);
 		  ResultSet rs=ps.executeQuery();
 		  if(null!= rs){
 			System.out.println("ok_ci_sono_assegnamenti_buoni");
@@ -209,6 +212,34 @@ public class AssegnamentiDao extends Dao {
 
 	    
 		return false;
+	}
+
+
+	public Boolean AggiornaAssegnamentoConSegnalazione(String id_assegnamento, String testo_segnalazione) {
+	    try{ 
+		      String Query = "UPDATE assegnamenti SET Segnalazioni = '"+testo_segnalazione+"' WHERE assegnamenti.id = '"+id_assegnamento+"'";
+		      //Query += "assegnamenti.data LIKE '%"+data+"%'";
+		      System.out.println("check_assegnamento_con_segnalazione");
+		      System.out.println(Query);
+			  PreparedStatement ps=connessione.prepareStatement(Query);
+			  int rs=ps.executeUpdate();
+			  System.out.println("result_ass_con_segnalazione"+rs);
+			if(rs >= 1){
+				System.out.println("assegnamento_aggiornato_problema_segnalato");
+				return true;
+			}
+			  
+			} catch (SQLException e) {
+				  String error="Problemi di connessione col DB" + e.getMessage();
+				  System.out.println("2"+error);
+			} catch(Exception e){
+				 String error="Driver JDBC non trovato"+ e.getMessage();
+				 System.out.println(error);
+			}
+		    
+
+		    
+			return false;
 	}
 }
 

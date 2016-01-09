@@ -85,7 +85,16 @@
       <div class="segnala-problema segnalazione-autista-wrap">
         <button class="btn segnala-problema clickable" onclick="javascript:toggle('segnala-problema-form');">Segnala problema</button>
         <div style="display:none;" id="segnala-problema-form">
-          FORM SEGNALA PROBLEMA FORM
+          <%
+   	   		String segnala_problema_form_markup;
+   			try {
+   				 gestoreAutisti AutistiClass  = new gestoreAutisti();
+   				 segnala_problema_form_markup = AutistiClass.Stampa_Form_Segnalazione_Problemi(request.getParameter("username"));
+   				} catch(Exception e){
+   					segnala_problema_form_markup = "ERRORE Assegnamenti segnala problemi: "+e.getMessage();
+   				}
+   			out.print(segnala_problema_form_markup);
+          %>
         </div>
       </div>
       <div class="altre-info">

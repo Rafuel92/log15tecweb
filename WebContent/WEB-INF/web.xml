@@ -56,6 +56,14 @@
     <servlet-name>log15tecweb.RifiutaAssegnamentoServerPage</servlet-name>
     <servlet-class>log15tecweb.RifiutaAssegnamentoServerPage</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>log15tecweb.SegnalaProblemaServerPage</servlet-name>
+    <servlet-class>log15tecweb.SegnalaProblemaServerPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>log15tecweb.SegnalaProblemaServerPage</servlet-name>
+    <url-pattern>/segnala-problema-serverpage</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>log15tecweb.FirstServlet</servlet-name>
     <url-pattern>/servlet1</url-pattern>

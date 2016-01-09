@@ -26,10 +26,7 @@ import java.sql.SQLException;
 		public static Boolean getStato() {
 			return false;
 		}
-		
-		
-		
-		
+
 		public String Stampa_lista_autisti_per_assegnamenti() {
 			AutistaDao autista=new AutistaDao();
 			ResultSet rs=autista.get_lista_autisti();
@@ -206,6 +203,62 @@ import java.sql.SQLException;
 			} catch (Exception e){
 				return Responso;
 			}
+		}
+		
+		public String Stampa_Form_Segnalazione_Problemi(String usernameautista) {
+			String Responso = "";
+			String Select_list_markup = "";
+			AssegnamentiDao Assegnamentidbconnection = new AssegnamentiDao();
+			ClienteDao Clientidbconnection = new ClienteDao();
+			Calendar cal = Calendar.getInstance();
+			//cal.add(Calendar.DAY_OF_MONTH, 7);
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println(cal.getTime());
+			String data = format1.format(cal.getTime());
+			System.out.println(data);
+			AutistaDao Autistadbconn = new AutistaDao();
+			String id_autista = Autistadbconn.get_id_autista_by_username(usernameautista);
+			ResultSet ListaAssegnamenti = Assegnamentidbconnection.ReadListaAssegnamentiofAutistaInData(id_autista,data);			
+			try {
+				System.out.println("okkkbueno");
+				Responso += "<form method = 'POST' action='segnala-problema-serverpage'>";
+				while(ListaAssegnamenti.next()){
+					/*Responso += "<tr>";
+					Responso += "<td>"+	Automezzidbconnection.GetTargaAutomezzoById(ListaAssegnamenti.getString("id_automezzo"))+"</td>";
+					Responso += "<td>"+	Clientidbconnection.GetNominativoClienteById(ListaAssegnamenti.getString("id_cliente"))+"</td>";
+					Responso += "<td>"+	Autistidbconnection.GetNominativoAutistaById(ListaAssegnamenti.getString("id_autista"))+"</td>";
+					Responso += "<td>"+	ListaAssegnamenti.getString("data")+"</td>";			
+					String link_switch_map = "<a href='client_autista.jsp?id_assegnamento_map=";
+					link_switch_map += ListaAssegnamenti.getString("id");
+					link_switch_map += "'>Visualizza Percorso</a>";
+					Responso += "<td>"+	link_switch_map+"</td>";
+					Responso += "</tr>";*/
+					String current_option_label = Clientidbconnection.GetNominativoClienteById(ListaAssegnamenti.getString("id_cliente"));
+					current_option_label += " - ";
+					current_option_label += ListaAssegnamenti.getString("data");
+					if(ListaAssegnamenti.getString("Segnalazioni")!= null){
+						current_option_label += "(Problema gia' segnalato)";
+					}
+					
+					Select_list_markup += "<option value='"+ListaAssegnamenti.getString("id")+"'>"+current_option_label+"</option>";
+				}
+				  Responso += "<div class='assegnamenti-field-wrap'>";
+				  	Responso += "<label>Seleziona Assegnamento</label>";
+				    Responso += "<select name='id_assegnamento'>"+Select_list_markup+"</select>";
+				  Responso += "</div>";
+				  Responso += "<div class='assegnamenti-field-wrap'>";
+				  	Responso += "<div class='testo-segn-lab-wrap'><label>Testo Segnalazione</label></div>";
+				    Responso += "<textarea rows='5' cols='50' name='testo_segnalazione'></textarea>";
+				  Responso += "</div>";
+				  Responso += "<input required name='usernameautista' type='hidden' value='"+usernameautista+"'/>";
+				  Responso += "<input class='btn-default btn' type='submit' />";
+				Responso += "</form>";
+				System.out.println("segnalaprobform");
+				System.out.println(Responso);			
+				return Responso;
+			} catch (Exception e){
+				return Responso;
+			}						
 		}
 		
 		/*private String getDateTime() {

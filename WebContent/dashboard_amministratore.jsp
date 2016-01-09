@@ -35,17 +35,6 @@
 						 return toprint;
 					}
 	      }
-	String printAssegnamentiProposti() {
-		String output_assegnamenti;
-		try {
-			GestoreAssegnamenti gest_assegnamenti = new GestoreAssegnamenti();
-			output_assegnamenti = gest_assegnamenti.GeneratePossibiliAssegnamenti();
-			return output_assegnamenti;
-		} catch (Exception e) {
-			output_assegnamenti = "Non Disponibile " + e.getMessage();
-			return output_assegnamenti;
-		}
-	}
 	String printAssegnamentiApprovati() {
 		String output_assegnamenti;
 		try {
